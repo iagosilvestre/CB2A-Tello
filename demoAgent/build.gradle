@@ -25,8 +25,8 @@ repositories {
     //maven { url "https://raw.github.com/embedded-mas/embedded-mas-mvn-repo/master" }
 
     //flatDir { dirs '/home/leandro/jason/build/libs'}
-    flatDir { dirs '/home/ctc_das/CBSjason/build/libs',
-                   '/home/ctc_das/critical-embedded-mas/src/main/java/embedded/mas/bridges/jacamo'
+    flatDir { dirs '/home/cb2a/CBSjason/build/libs',
+                   '/home/cb2a/critical-embedded-mas/src/main/java/embedded/mas/bridges/jacamo'
     }
     mavenCentral()
 //                   '/home/leandro/critical-embedded-mas/examples/lbbROS1examples/LBB-ROSinterfAnalysis/src/java'
@@ -72,9 +72,9 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDir '/home/ctc_das/critical-embedded-mas/src/main/java/embedded/mas/'
+            srcDir '/home/cb2a/critical-embedded-mas/src/main/java/embedded/mas/'
             srcDir 'src/java'
-            srcDir '/home/ctc_das/CBSjason/build/libs/'
+            srcDir '/home/cb2a/CBSjason/build/libs/'
         }
         // srcDirs 'src/main/java', 'external-project'
         resources {

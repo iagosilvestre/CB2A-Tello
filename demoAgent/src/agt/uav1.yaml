@@ -5,19 +5,17 @@
       connectionString: ws://localhost:9090 #connection with ROS      
       className: DefaultRos4EmbeddedMas  
   perceptionTopics:
-      - topicName: failure_uav1 #topico do rospy
+      - topicName: cp_uav1 #topico do rospy
         topicType: std_msgs/Int8 #type do rospy
         beliefName: critical_percept
-      - topicName: block #topico do rospy
-        topicType: std_msgs/Int8 #type do rospy
-      - topicName: unblock #topico do rospy
-        topicType: std_msgs/Int8 #type do rospy
-      - topicName: uav1/odometry/gps_local_odom
+      - topicName: /drone1/odom
         topicType: nav_msgs/Odometry
-      - topicName: landing_x
-        topicType: std_msgs/Float64
-      - topicName: landing_y
-        topicType: std_msgs/Float64
+      - topicName: /drone1/tello_response
+        topicType: tello_msgs/TelloResponse
+      #- topicName: landing_x
+      #  topicType: std_msgs/Float64
+      #- topicName: landing_y
+      #  topicType: std_msgs/Float64
   actions:       
     serviceRequestActions: #this example has only service-based actions
         - actionName: land #action name (from agent's perspective)
