@@ -8,9 +8,9 @@
       - topicName: cp_uav1 #topico do rospy
         topicType: std_msgs/Int8 #type do rospy
         beliefName: critical_percept
-      - topicName: /drone1/odom
+      - topicName: /odom
         topicType: nav_msgs/Odometry
-      - topicName: /drone1/tello_response
+      - topicName: /tello_response
         topicType: tello_msgs/TelloResponse
       #- topicName: landing_x
       #  topicType: std_msgs/Float64
@@ -20,6 +20,10 @@
     serviceRequestActions: #this example has only service-based actions
         - actionName: land #action name (from agent's perspective)
           serviceName: /uav1/uav_manager/land #service called to execute the action
+        - actionName: telloAction
+          serviceName: /tello_action
+          params:
+            - cmd
     topicWritingActions:          
       # - actionName: update_value1
       #   topicName: /value1

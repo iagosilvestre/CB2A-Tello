@@ -2,15 +2,51 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-07-04T17:33:32.361888672Z</date>
-  <millis>1688492012361</millis>
-  <nanos>888672</nanos>
+  <date>2023-10-12T14:43:57.692314089Z</date>
+  <millis>1697121837692</millis>
+  <nanos>314089</nanos>
   <sequence>0</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
-  <thread>33</thread>
+  <thread>34</thread>
   <message>Started!</message>
+</record>
+<record>
+  <date>2023-10-12T14:43:57.696853600Z</date>
+  <millis>1697121837696</millis>
+  <nanos>853600</nanos>
+  <sequence>1</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>34</thread>
+  <message>taking off</message>
+</record>
+<record>
+  <date>2023-10-12T14:44:07.743701392Z</date>
+  <millis>1697121847743</millis>
+  <nanos>701392</nanos>
+  <sequence>2</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>34</thread>
+  <message>spin</message>
+</record>
+<record>
+  <date>2023-10-12T14:44:17.776506507Z</date>
+  <millis>1697121857776</millis>
+  <nanos>506507</nanos>
+  <sequence>3</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>34</thread>
+  <message>land</message>
 </record>
 </log>

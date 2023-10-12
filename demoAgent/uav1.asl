@@ -61,7 +61,9 @@ my_number_string(S) :- my_number(N)
       //!calculate_trajectory;//trajectory//!calculate_area;//!calculate_waypoints(1, []);// pode ser unido com os outros
       //!hover.
       !takeoff;
+      .wait(10000);
       !spin;
+      .wait(10000);
       !land.
       //!follow_trajectory(0).      
 
@@ -79,15 +81,17 @@ my_number_string(S) :- my_number(N)
 +!takeoff
    <- -+status("taking off");
       .print("taking off");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","{cmd: 'takeoff'}").
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","takeoff").
 
 +!spin
    <- -+status("spin");
-      .print("spin").
+      .print("spin");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 0 0 50"). 
       
 +!land
    <- -+status("land");
-      .print("land").   
+      .print("land");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","land").   
 
 
 

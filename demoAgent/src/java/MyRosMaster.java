@@ -37,6 +37,22 @@ public class MyRosMaster extends RosMaster{
 
 		}
 		
+		if(actionName.equals("takeoff")){ 
+			ServiceParameters p = new ServiceParameters();
+			p.addParameter("cmd","takeoff");
+			serviceRequest("/drone1/tello_action", p); 
+			return true;
+
+		}
+		
+		if(actionName.equals("land")){ 
+			ServiceParameters p = new ServiceParameters();
+			p.addParameter("cmd","land");
+			serviceRequest("/drone1/tello_action", p); 
+			return true;
+
+		}
+		
 		if(actionName.equals("adf")){	//adicionar belief failure -+status("failure");	   
 	      ((DefaultRos4EmbeddedMas) microcontroller).rosWrite("/agent_detected_failure_uav1","std_msgs/String",(String)args[0]);
 
