@@ -62,8 +62,14 @@ my_number_string(S) :- my_number(N)
       //!hover.
       !takeoff;
       .wait(10000);
-      !spin;
-      .wait(10000);
+      !left;
+      .wait(20000);
+      !front;
+      .wait(20000);
+      !left;
+      .right(20000);
+      !left;
+      .back(20000);
       !land.
       //!follow_trajectory(0).      
 
@@ -86,8 +92,28 @@ my_number_string(S) :- my_number(N)
 +!spin
    <- -+status("spin");
       .print("spin");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 0 0 50"). 
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0.01 0 0 0"). 
+
++!left
+   <- -+status("left");
+      .print("left");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 -10 0 0"). 
+
++!right
+   <- -+status("right");
+      .print("right");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 10 0 0"). 
+
++!front
+   <- -+status("front");
+      .print("front");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 10 0 0 0").      
       
++!back
+   <- -+status("back");
+      .print("back");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc -10 0 0 0").     
+                
 +!land
    <- -+status("land");
       .print("land");
