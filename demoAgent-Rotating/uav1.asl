@@ -97,12 +97,12 @@ my_number_string(S) :- my_number(N)
 +!left
    <- -+status("left");
       .print("left");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc -20 0 0 0"). 
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc -20 0 0 -"). 
 
 +!right
    <- -+status("right");
       .print("right");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 20 0 0 0"). 
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 25 0 0 0"). 
 
 +!front
    <- -+status("front");

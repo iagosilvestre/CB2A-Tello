@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-10-19T12:06:47.233458159Z</date>
-  <millis>1697717207233</millis>
-  <nanos>458159</nanos>
+  <date>2023-10-19T09:52:34.117334899Z</date>
+  <millis>1697709154117</millis>
+  <nanos>334899</nanos>
   <sequence>0</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Started!</message>
 </record>
 <record>
-  <date>2023-10-19T12:06:47.239401346Z</date>
-  <millis>1697717207239</millis>
-  <nanos>401346</nanos>
+  <date>2023-10-19T09:52:34.130797859Z</date>
+  <millis>1697709154130</millis>
+  <nanos>797859</nanos>
   <sequence>1</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>taking off</message>
 </record>
 <record>
-  <date>2023-10-19T12:06:57.303244510Z</date>
-  <millis>1697717217303</millis>
-  <nanos>244510</nanos>
+  <date>2023-10-19T09:52:44.186955016Z</date>
+  <millis>1697709164186</millis>
+  <nanos>955016</nanos>
   <sequence>2</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>left</message>
 </record>
 <record>
-  <date>2023-10-19T12:07:22.316787846Z</date>
-  <millis>1697717242316</millis>
-  <nanos>787846</nanos>
+  <date>2023-10-19T09:53:09.201979690Z</date>
+  <millis>1697709189201</millis>
+  <nanos>979690</nanos>
   <sequence>3</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>front</message>
 </record>
 <record>
-  <date>2023-10-19T12:07:47.413767268Z</date>
-  <millis>1697717267413</millis>
-  <nanos>767268</nanos>
+  <date>2023-10-19T09:53:34.204897719Z</date>
+  <millis>1697709214204</millis>
+  <nanos>897719</nanos>
   <sequence>4</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>right</message>
 </record>
 <record>
-  <date>2023-10-19T12:08:12.416805785Z</date>
-  <millis>1697717292416</millis>
-  <nanos>805785</nanos>
+  <date>2023-10-19T09:53:59.207601305Z</date>
+  <millis>1697709239207</millis>
+  <nanos>601305</nanos>
   <sequence>5</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
@@ -74,9 +74,9 @@
   <message>back</message>
 </record>
 <record>
-  <date>2023-10-19T12:08:37.422044178Z</date>
-  <millis>1697717317422</millis>
-  <nanos>44178</nanos>
+  <date>2023-10-19T09:54:24.221399417Z</date>
+  <millis>1697709264221</millis>
+  <nanos>399417</nanos>
   <sequence>6</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
