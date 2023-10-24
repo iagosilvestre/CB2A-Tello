@@ -31,9 +31,9 @@
       # - actionName: update_value2              
       #   topicName: /value2
       #   topicType: std_msgs/Int32
-       - actionName: teste              
-         topicName: /teste
-         topicType: std_msgs/String 
+       - actionName: cmd_vel            
+         topicName: /cmd_vel
+         topicType: geometry_msgs/Twist 
        #- actionName: adf              
        #  topicName: /agent_detected_failure_uav1
        #  topicType: std_msgs/String 

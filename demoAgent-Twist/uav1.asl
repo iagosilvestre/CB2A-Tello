@@ -62,14 +62,14 @@ my_number_string(S) :- my_number(N)
       //!hover.
       !takeoff;
       .wait(10000);
-      !left;
+      //!left2;
+      //.wait(25000);
+      !front2;
       .wait(25000);
-      !front;
-      .wait(25000);
-      !right;
-      .wait(25000);
-      !back;
-      .wait(25000);
+      //!right2;
+      //.wait(25000);
+      //!back2;
+      //.wait(25000);
       !land.
       //!follow_trajectory(0).      
 
@@ -82,7 +82,7 @@ my_number_string(S) :- my_number(N)
       .wait(2000);
       -failure.
       
-
+//embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("sample_roscore","update_time",Msg).
 //////////////// Calculating land position
 +!takeoff
    <- -+status("taking off");
@@ -93,6 +93,28 @@ my_number_string(S) :- my_number(N)
    <- -+status("spin");
       .print("spin");
       embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0.01 0 0 0"). 
+
++!left2
+   <- -+status("left");
+      .print("left");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","left",[N]). 
+
++!right2
+   <- -+status("right");
+      .print("right");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","right",[N]). 
+
++!front2
+   <- -+status("front");
+      .print("front");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","front",[N]).      
+      
++!back2
+   <- -+status("back");
+      .print("back");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","back",[N]).   
+
+
 
 +!left
    <- -+status("left");
