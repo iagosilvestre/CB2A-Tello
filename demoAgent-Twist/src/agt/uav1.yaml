@@ -21,7 +21,7 @@
         - actionName: land #action name (from agent's perspective)
           serviceName: /uav1/uav_manager/land #service called to execute the action
         - actionName: telloAction
-          serviceName: /tello_action
+          serviceName: /drone1/tello_action
           params:
             - cmd
     topicWritingActions:          
@@ -31,11 +31,8 @@
       # - actionName: update_value2              
       #   topicName: /value2
       #   topicType: std_msgs/Int32
-       - actionName: cmd_vel            
-         topicName: /cmd_vel
-         topicType: geometry_msgs/Twist 
-       #- actionName: adf              
-       #  topicName: /agent_detected_failure_uav1
+       #- actionName: cmd_vel              
+       #  topicName: /cmdVel
        #  topicType: std_msgs/String 
 
 

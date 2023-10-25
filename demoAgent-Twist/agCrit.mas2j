@@ -15,7 +15,6 @@ MAS teste_embedded_mas {
     infrastructure: Local
 
     agents: uav1 agentClass embedded.mas.bridges.jacamo.CyberPhysicalAgent agentArchClass embedded.mas.bridges.jacamo.DemoEmbeddedAgentArch;
-	
 
 		
 

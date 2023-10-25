@@ -8,7 +8,8 @@ std_heading(0.0).
 land_point(-102.0, -111.0).
 land_radius(10.0).
 diff(1).
-
+my_number(1). 
+my_frame_id("uav1/gps_origin").
 //pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW))))
 //////////////// Rules
 current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & drone1_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
@@ -62,14 +63,14 @@ my_number_string(S) :- my_number(N)
       //!hover.
       !takeoff;
       .wait(10000);
-      //!left2;
-      //.wait(25000);
-      !front2;
-      .wait(25000);
-      //!right2;
-      //.wait(25000);
-      //!back2;
-      //.wait(25000);
+      !left;
+      .wait(5000);
+      !front;
+      .wait(5000);
+      !right;
+      .wait(5000);
+      !back;
+      .wait(5000);
       !land.
       //!follow_trajectory(0).      
 
@@ -94,47 +95,33 @@ my_number_string(S) :- my_number(N)
       .print("spin");
       embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0.01 0 0 0"). 
 
-+!left2
-   <- -+status("left");
-      .print("left");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","left",[N]). 
-
-+!right2
-   <- -+status("right");
-      .print("right");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","right",[N]). 
-
-+!front2
-   <- -+status("front");
-      .print("front");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","front",[N]).      
-      
-+!back2
-   <- -+status("back");
-      .print("back");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","back",[N]).   
-
-
-
 +!left
    <- -+status("left");
       .print("left");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc -20 0 0 -"). 
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd_vel",[0,-0.1,0,0]). 
 
 +!right
    <- -+status("right");
       .print("right");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 25 0 0 0"). 
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd_vel",[0,0.1,0,0]). 
 
 +!front
+   :  my_number(N)
    <- -+status("front");
       .print("front");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 20 0 0").      
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd_vel",[0.1,0,0,0]).      
       
 +!back
    <- -+status("back");
       .print("back");
-      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","telloAction","rc 0 -20 0 0").     
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd_vel",[-0.1,0,0,0]).   
+
++!test
+   :  my_number(N)
+   <- -+status("test");
+      .print("test");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd_vel","{\"linear\": {\"x\": 0.1, \"y\": 0.0, \"z\": 0.0}, \"angular\": {\"x\": 0.0, \"y\": 0.0, \"z\": 0.0}}").
+
                 
 +!land
    <- -+status("land");

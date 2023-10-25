@@ -37,13 +37,11 @@ public class MyRosMaster extends RosMaster{
 
 		}
 		
-		if(actionName.equals("front")){ 
-		System.out.println("\n debug front");
-			((DefaultRos4EmbeddedMas) microcontroller).rosWrite("/cmd_vel","geometry_msgs/Twist","{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}");
-			return true;
-			
-
-		}
+		
+		if(actionName.equals("cmd_vel")){	   
+	      ((DefaultRos4EmbeddedMas) microcontroller).rosWrite("/drone1/cmd_vel","geometry_msgs/Twist","{\"linear\": {\"x\": "+args[0]+", \"y\": "+args[1]+", \"z\": "+args[2]+"}, \"angular\": {\"x\": 0.0, \"y\": 0.0, \"z\": "+args[3]+"}}");
+		   return true;
+	   }
 		
 		if(actionName.equals("land")){ 
 			ServiceParameters p = new ServiceParameters();
