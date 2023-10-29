@@ -1,3 +1,0 @@
-<launch>
-  <node name="sarc_low_map" pkg="sarc_environment" type="sarc_low_map.py" output="screen"/>
-</launch>
