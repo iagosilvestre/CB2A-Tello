@@ -17,10 +17,17 @@ from rclpy.node import Node
 
 from djitellopy import Tello
 from std_msgs.msg import String
+from sensor_msgs.msg import Image
 
+import av
+import math
+import numpy as np
+import threading
+import time
 
 tello = Tello()
-
+x=0
+y=0
 class MinimalSubscriber(Node):
 
     def __init__(self):
@@ -31,7 +38,11 @@ class MinimalSubscriber(Node):
             self.listener_callback,
             10)
         self.subscription  # prevent unused variable warning
+        self.pub_image_raw = self.create_publisher(Image, 'image_raw', 10)
+        self.pub_conclude = self.create_publisher(String, 'image_raw', 10)
         
+        self.frame_thread = threading.Thread(target=self.framegrabber_loop)
+        self.frame_thread.start()
         #tello = Tello()
 
         #tello.connect()
@@ -51,13 +62,36 @@ class MinimalSubscriber(Node):
         	tello.takeoff()
         if x[0] == "move_left":
         	tello.move_left(int(x[1]))
-        if x[0] == "move_right":
+        elif x[0] == "move_right":
         	tello.move_right(int(x[1]))
-        if x[0] == "move_up":
+        elif x[0] == "move_up":
         	tello.move_left(int(x[1]))
-        if x[0] == "move_down":
+        elif x[0] == "move_down":
         	tello.move_left(int(x[1]))
+        elif x[0] == "land":
+        	tello.land()
+        elif x[0] == "rotate_ccw":
+        	tello.rotate_counter_clockwise(int(x[1]))
+        elif x[0] == "rotate_cw":
+        	tello.rotate_clockwise(int(x[1]))
+        	
+        	
+        	
+    def framegrabber_loop(self):
+        tello.streamon()
+        time.sleep(1.0)
 
+        # Once connected, process frames till drone/stream closes
+        while self.state != self.STATE_QUIT:
+            try:
+                frame = tello.get_frame_read()
+                img = np.array(frame.to_image())
+                img_msg = self.bridge.cv2_to_imgmsg(img, 'rgb8')
+                img_msg.header.frame_id = rclpy.get_namespace()
+                self.pub_image_raw.publish(img_msg)
+            except BaseException as err:
+                self.get_logger().info('Decoding error' )  
+    
 
 def main(args=None):
     rclpy.init(args=args)
