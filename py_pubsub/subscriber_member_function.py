@@ -19,30 +19,44 @@ from djitellopy import Tello
 from std_msgs.msg import String
 
 
+tello = Tello()
+
 class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('minimal_subscriber')
         self.subscription = self.create_subscription(
             String,
-            'topic',
+            'cmd_tello',
             self.listener_callback,
             10)
         self.subscription  # prevent unused variable warning
         
-        tello = Tello()
+        #tello = Tello()
 
-        tello.connect()
-        tello.takeoff()
+        #tello.connect()
+        #tello.takeoff()
 
-        tello.move_left(100)
-        tello.rotate_counter_clockwise(90)
-        tello.move_forward(100)
+        #tello.move_left(100)
+        #tello.rotate_counter_clockwise(90)
+        #tello.move_forward(100)
 
-        tello.land()
+        #tello.land()
 
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)
+        x = msg.data.split(";")
+        if x[0] == "takeoff":
+        	print("takeoff")
+        	tello.takeoff()
+        if x[0] == "move_left":
+        	tello.move_left(int(x[1]))
+        if x[0] == "move_right":
+        	tello.move_right(int(x[1]))
+        if x[0] == "move_up":
+        	tello.move_left(int(x[1]))
+        if x[0] == "move_down":
+        	tello.move_left(int(x[1]))
 
 
 def main(args=None):
