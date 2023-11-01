@@ -31,8 +31,8 @@
       # - actionName: update_value2              
       #   topicName: /value2
       #   topicType: std_msgs/Int32
-       #- actionName: cmd_vel              
-       #  topicName: /cmdVel
-       #  topicType: std_msgs/String 
+       - actionName: cmd              
+         topicName: /cmd_tello
+         topicType: std_msgs/String 
 
 

@@ -39,7 +39,7 @@ class MinimalSubscriber(Node):
             10)
         self.subscription  # prevent unused variable warning
         self.pub_image_raw = self.create_publisher(Image, 'image_raw', 10)
-        self.pub_conclude = self.create_publisher(String, 'image_raw', 10)
+        self.pub_conclude = self.create_publisher(String, 'conclude', 10)
         
         self.frame_thread = threading.Thread(target=self.framegrabber_loop)
         self.frame_thread.start()
