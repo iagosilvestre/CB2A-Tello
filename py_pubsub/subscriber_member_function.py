@@ -12,20 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pprint
+import math
 import rclpy
-from rclpy.node import Node
+import threading
+import numpy
+import time
+import av
+import tf2_ros
+import cv2
+import time
+import yaml
 
 from djitellopy import Tello
-from std_msgs.msg import String
-from sensor_msgs.msg import Image
 
-import av
-import math
-import numpy as np
-import threading
-import time
+from rclpy.node import Node
+from std_msgs.msg import Empty, UInt8, UInt8, Bool, String
+from sensor_msgs.msg import Image, Imu, BatteryState, Temperature, CameraInfo
+from geometry_msgs.msg import Twist, TransformStamped
+from nav_msgs.msg import Odometry
+from cv_bridge import CvBridge
+import ament_index_python
 
-tello = Tello()
 x=0
 y=0
 class MinimalSubscriber(Node):
@@ -38,14 +46,23 @@ class MinimalSubscriber(Node):
             self.listener_callback,
             10)
         self.subscription  # prevent unused variable warning
-        self.pub_image_raw = self.create_publisher(Image, 'image_raw', 10)
-        self.pub_conclude = self.create_publisher(String, 'conclude', 10)
-        
-        self.frame_thread = threading.Thread(target=self.framegrabber_loop)
-        self.frame_thread.start()
-        #tello = Tello()
+        # Declare parameters
 
-        #tello.connect()
+        Tello.RESPONSE_TIMEOUT = int(10.0)
+        
+        self.tello = Tello()
+        self.tello.connect()
+        self.pub_conclude = self.create_publisher(String, 'conclude', 10)
+        self.pub_image_raw = self.create_publisher(Image, 'image_raw', 1)
+        self.pub_camera_info = self.create_publisher(CameraInfo, 'camera_info', 1)
+        self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
+        
+        
+        
+
+        #self.start_video_capture()
+        #self.start_tello_status()
+        #self.start_tello_odom()
         #tello.takeoff()
 
         #tello.move_left(100)
@@ -55,42 +72,54 @@ class MinimalSubscriber(Node):
         #tello.land()
 
     def listener_callback(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.data)
         x = msg.data.split(";")
-        if x[0] == "takeoff":
-        	print("takeoff")
-        	tello.takeoff()
-        if x[0] == "move_left":
-        	tello.move_left(int(x[1]))
-        elif x[0] == "move_right":
-        	tello.move_right(int(x[1]))
-        elif x[0] == "move_up":
-        	tello.move_left(int(x[1]))
-        elif x[0] == "move_down":
-        	tello.move_left(int(x[1]))
-        elif x[0] == "land":
-        	tello.land()
-        elif x[0] == "rotate_ccw":
-        	tello.rotate_counter_clockwise(int(x[1]))
-        elif x[0] == "rotate_cw":
-        	tello.rotate_clockwise(int(x[1]))
-        	
-        	
-        	
-    def framegrabber_loop(self):
-        tello.streamon()
-        time.sleep(1.0)
+        self.get_logger().info('I heard: "%s"' % x[0])
+        if x[0] == "\"takeoff":
+            self.tello.takeoff()
+        elif x[0] == "\"move_left":
+            self.tello.move_left(int(x[1].strip("\"")))
+        elif x[0] == "\"move_right":
+            self.tello.move_right(int(x[1].strip("\"")))
+        elif x[0] == "\"move_forward":
+            self.tello.move_forward(int(x[1].strip("\"")))
+        elif x[0] == "\"move_back":
+            self.tello.move_back(int(x[1].strip("\"")))
+        elif x[0] == "\"land":
+            self.tello.land()
+        elif x[0] == "\"rotate_ccw":
+            self.tello.rotate_counter_clockwise(int(x[1].strip("\"")))
+        elif x[0] == "\"rotate_cw":
+            self.tello.rotate_clockwise(int(x[1].strip("\"")))
 
-        # Once connected, process frames till drone/stream closes
-        while self.state != self.STATE_QUIT:
-            try:
-                frame = tello.get_frame_read()
-                img = np.array(frame.to_image())
-                img_msg = self.bridge.cv2_to_imgmsg(img, 'rgb8')
-                img_msg.header.frame_id = rclpy.get_namespace()
-                self.pub_image_raw.publish(img_msg)
-            except BaseException as err:
-                self.get_logger().info('Decoding error' )  
+        	
+    # Start video capture thread.
+    def start_video_capture(self, rate=1.0/5.0):
+        # Enable tello stream
+        self.tello.streamon()
+
+        # OpenCV bridge
+        self.bridge = CvBridge()
+
+        def video_capture_thread():
+            frame_read = self.tello.get_frame_read()
+
+            while True:
+                # Get frame from drone
+                frame = frame_read.frame
+
+                # Publish opencv frame using CV bridge
+                msg = self.bridge.cv2_to_imgmsg(numpy.array(frame), 'rgb8')
+                msg.header.frame_id = 'drone'
+                self.pub_image_raw.publish(msg)
+
+                time.sleep(rate)
+                
+
+        # We need to run the recorder in a seperate thread, otherwise blocking options would prevent frames from getting added to the video
+        thread = threading.Thread(target=video_capture_thread)
+        thread.start()
+        return thread 	
+      
     
 
 def main(args=None):
