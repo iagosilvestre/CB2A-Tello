@@ -27,24 +27,23 @@ import yaml
 from djitellopy import Tello
 
 from rclpy.node import Node
-from std_msgs.msg import Empty, UInt8, UInt8, Bool, String
+from std_msgs.msg import Empty, UInt8, UInt8, Bool, String, Int8
 from sensor_msgs.msg import Image, Imu, BatteryState, Temperature, CameraInfo
-from geometry_msgs.msg import Twist, TransformStamped
+from geometry_msgs.msg import Twist, TransformStamped, PoseStampedMsg
 from nav_msgs.msg import Odometry
 from cv_bridge import CvBridge
 import ament_index_python
 
-x=0
-y=0
+drone_x=0
+drone_y=0
 class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('minimal_subscriber')
-        self.subscription = self.create_subscription(
-            String,
-            'cmd_tello',
-            self.listener_callback,
-            10)
+        self.subscription = self.create_subscription(String,'cmd_tello',self.listener_callback,1)
+        self.subscription  # prevent unused variable warning
+
+        self.sub_drone_pose = self.create_subscription(PoseStampedMsg,'pose_orb',self.pose_callback,1)
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
@@ -55,6 +54,7 @@ class MinimalSubscriber(Node):
         self.pub_conclude = self.create_publisher(String, 'conclude', 10)
         self.pub_image_raw = self.create_publisher(Image, 'image_raw', 1)
         self.pub_camera_info = self.create_publisher(CameraInfo, 'camera_info', 1)
+        self.pub_reached_goal = self.create_publisher(Int8, 'reached_goal', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
         
         
@@ -91,6 +91,9 @@ class MinimalSubscriber(Node):
         elif x[0] == "\"rotate_cw":
             self.tello.rotate_clockwise(int(x[1].strip("\"")))
 
+    def pose_callback(self, msg):
+        drone_x=msg.pose.position.x
+        drone_y=msg.pose.position.y
         	
     # Start video capture thread.
     def start_video_capture(self, rate=1.0/5.0):

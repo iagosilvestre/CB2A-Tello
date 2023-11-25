@@ -10,8 +10,10 @@
         beliefName: critical_percept
       - topicName: /odom
         topicType: nav_msgs/Odometry
-      - topicName: /tello_response
-        topicType: tello_msgs/TelloResponse
+      - topicName: /reached_goal
+        topicType: std_msgs/Int8
+        beliefName: reachedGoal
+        
       #- topicName: landing_x
       #  topicType: std_msgs/Float64
       #- topicName: landing_y
@@ -34,5 +36,8 @@
        - actionName: cmd              
          topicName: /cmd_tello
          topicType: std_msgs/String 
+       - actionName: flyto              
+         topicName: /fly_to
+         topicType: std_msgs/String
 
 

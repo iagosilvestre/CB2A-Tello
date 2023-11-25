@@ -78,6 +78,15 @@ my_number_string(S) :- my_number(N)
       !land.
       //!follow_trajectory(0).      
 
++flyto(X,Y)
+   :  & not reachedGoal(1)
+   <- embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","flyto","" X ";" Y "");
+      !flyto(X,Y).
+   
++flyto(X,Y)
+   :  & reachedGoal(1)
+   <- .print("Reached Goal :" X "," Y).
+
 +failure
    <- .print("Suspending Trajectory!");
       -unblocked.
