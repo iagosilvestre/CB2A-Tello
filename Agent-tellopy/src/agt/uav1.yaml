@@ -36,8 +36,8 @@
        - actionName: cmd              
          topicName: /cmd_tello
          topicType: std_msgs/String 
-       - actionName: flyto              
-         topicName: /fly_to
+       - actionName: goto              
+         topicName: /go_to
          topicType: std_msgs/String
 
 
