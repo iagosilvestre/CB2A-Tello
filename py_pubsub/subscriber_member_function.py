@@ -47,6 +47,10 @@ class MinimalSubscriber(Node):
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
+        self.sub_drone_pose = self.create_subscription(String,'goto',self.goto_callback,1)
+        self.subscription  # prevent unused variable warning
+        # Declare parameters
+
         Tello.RESPONSE_TIMEOUT = int(10.0)
         
         self.tello = Tello()
@@ -60,7 +64,7 @@ class MinimalSubscriber(Node):
         
         
 
-        #self.start_video_capture()
+        self.start_video_capture()
         #self.start_tello_status()
         #self.start_tello_odom()
         #tello.takeoff()
@@ -94,9 +98,17 @@ class MinimalSubscriber(Node):
     def pose_callback(self, msg):
         drone_x=msg.pose.position.x
         drone_y=msg.pose.position.y
-        	
+
+    def goto_callback(self, msg):
+        x = msg.data.split(";")
+        self.get_logger().info('I heard: "%s"' % x[0])
+        goal_x=int(x[0].strip("\""))
+        goal_y=int(x[1].strip("\""))
+        
+        
+
     # Start video capture thread.
-    def start_video_capture(self, rate=1.0/5.0):
+    def start_video_capture(self, rate=1.0/15.0):
         # Enable tello stream
         self.tello.streamon()
 
