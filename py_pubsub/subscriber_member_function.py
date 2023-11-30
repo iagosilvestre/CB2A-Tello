@@ -47,7 +47,7 @@ class MinimalSubscriber(Node):
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
-        self.sub_drone_pose = self.create_subscription(String,'goto',self.goto_callback,1)
+        self.sub_drone_pose = self.create_subscription(String,'go_to',self.goto_callback,1)
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
@@ -56,8 +56,8 @@ class MinimalSubscriber(Node):
         self.tello = Tello()
         self.tello.connect()
         self.pub_conclude = self.create_publisher(String, 'conclude', 10)
-        self.pub_image_raw = self.create_publisher(Image, 'image_raw', 1)
-        self.pub_camera_info = self.create_publisher(CameraInfo, 'camera_info', 1)
+        self.pub_image_raw = self.create_publisher(Image, 'drone1/image_raw', 1)
+        self.pub_camera_info = self.create_publisher(CameraInfo, 'drone1/camera_info', 1)
         self.pub_reached_goal = self.create_publisher(Int8, 'reached_goal', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
         
