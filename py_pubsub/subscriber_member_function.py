@@ -36,6 +36,11 @@ import ament_index_python
 
 drone_x=0
 drone_y=0
+
+goal_x=0
+goal_y=0
+
+start=0
 class MinimalSubscriber(Node):
 
     def __init__(self):
@@ -47,7 +52,7 @@ class MinimalSubscriber(Node):
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
-        self.sub_drone_pose = self.create_subscription(String,'go_to',self.goto_callback,1)
+        self.sub_drone_goto = self.create_subscription(String,'go_to',self.goto_callback,1)
         self.subscription  # prevent unused variable warning
         # Declare parameters
 
@@ -60,11 +65,14 @@ class MinimalSubscriber(Node):
         self.pub_camera_info = self.create_publisher(CameraInfo, 'drone1/camera_info', 1)
         self.pub_reached_goal = self.create_publisher(Int8, 'reached_goal', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
+
+        self.pub_cmd_vel = self.create_publisher(Twist, 'drone1/cmd_vel', 1)
         
         
         
 
         self.start_video_capture()
+        self.start_goto_pose()
         #self.start_tello_status()
         #self.start_tello_odom()
         #tello.takeoff()
@@ -100,6 +108,7 @@ class MinimalSubscriber(Node):
         drone_y=msg.pose.position.y
 
     def goto_callback(self, msg):
+        start=1
         x = msg.data.split(";")
         self.get_logger().info('I heard: "%s"' % x[0])
         goal_x=int(x[0].strip("\""))
@@ -107,6 +116,29 @@ class MinimalSubscriber(Node):
         
         
 
+    # Start goal pose thread.
+    def start_goto_pose(self, rate=1.0/5.0):
+        def goto_pose_thread():
+            msg=Twist()
+            while start==1:
+                if(goal_x>drone_x):
+                    msg.linear.x = 0.01
+                elif(goal_x<drone_x):
+                    msg.linear.x = -0.01
+                elif(goal_y>drone_y):
+                    msg.linear.y = 0.01
+                elif(goal_y<drone_y):
+                    msg.linear.y = -0.01
+                self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
+
+                time.sleep(rate)
+                
+
+        # We need to run the recorder in a seperate thread, otherwise blocking options would prevent frames from getting added to the video
+        thread = threading.Thread(target=goto_pose_thread)
+        thread.start()
+        return thread
+    
     # Start video capture thread.
     def start_video_capture(self, rate=1.0/15.0):
         # Enable tello stream
