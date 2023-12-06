@@ -69,7 +69,7 @@ class MinimalSubscriber(Node):
         Tello.RESPONSE_TIMEOUT = int(10.0)
         
         self.tello = Tello()
-        self.tello.connect()
+        #self.tello.connect()
         self.pub_conclude = self.create_publisher(String, 'conclude', 10)
         self.pub_image_raw = self.create_publisher(Image, '/drone1/image_raw', 1)
         self.pub_camera_info = self.create_publisher(CameraInfo, '/drone1/camera_info', 1)
@@ -82,7 +82,7 @@ class MinimalSubscriber(Node):
         self.tf_listener = TransformListener(self.tf_buffer, self)
         
 
-        self.start_video_capture()
+        #self.start_video_capture()
         self.start_goto_pose()
         #self.start_tello_status()
         #self.start_tello_odom()
@@ -211,7 +211,7 @@ class MinimalSubscriber(Node):
                     msg.linear.x = 0
                     msg.linear.y = 0
                 self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
-
+                print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
                 time.sleep(rate)
                 
 
