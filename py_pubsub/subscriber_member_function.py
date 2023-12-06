@@ -39,15 +39,6 @@ from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 from std_msgs.msg import Float64MultiArray 
 
-drone_x=0
-drone_y=0
-
-goal_x=0
-goal_y=0
-
-start=0
-
-thrs=0.5
 class MinimalSubscriber(Node):
 
     def __init__(self):
@@ -81,9 +72,18 @@ class MinimalSubscriber(Node):
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
         
+        self.current_x=0.0
+        self.current_y=0.0
+
+        self.goal_x=0.0
+        self.goal_y=0.0
+
+        self.startgoto=0
+
+        self.thrs=0.03
 
         #self.start_video_capture()
-        self.start_goto_pose()
+        #self.start_goto_pose()
         #self.start_tello_status()
         #self.start_tello_odom()
         #tello.takeoff()
@@ -119,9 +119,11 @@ class MinimalSubscriber(Node):
             return
         
         # Publish the 2D pose
+        #drone_x = trans.transform.translation.x
+        #drone_y = trans.transform.translation.y 
         self.current_x = trans.transform.translation.x
         self.current_y = trans.transform.translation.y    
-        print("I believe I am at x = %.3f and y=  %.3f "  % (trans.transform.translation.x, trans.transform.translation.y))
+        #print("I believe I am at x = %.3f and y=  %.3f "  % (trans.transform.translation.x, trans.transform.translation.y))
         roll, pitch, yaw = self.euler_from_quaternion(
         trans.transform.rotation.x,
         trans.transform.rotation.y,
@@ -183,39 +185,48 @@ class MinimalSubscriber(Node):
         #print("I believe I am at x = %.2f and y=  %.2f "  % (drone_x, drone_y))
 
     def goto_callback(self, msg):
-        start=1
+        if(self.startgoto==0):
+            self.startgoto=1
+            self.start_goto_pose()
         x = msg.data.split(";")
         self.get_logger().info('x goal: "%s"' % x[0])
         self.get_logger().info('y goal: "%s"' % x[1])
-        goal_x=float(x[0].strip("\""))
-        goal_y=float(x[1].strip("\""))
+        self.goal_x=float(x[0].strip("\""))
+        self.goal_y=float(x[1].strip("\""))
         
         
 
     # Start goal pose thread.
-    def start_goto_pose(self, rate=1.0/2.0):
+    def start_goto_pose(self, rate=1.0/30.0):
         def goto_pose_thread():
+            print("Starting goto thread")
             msg=Twist()
-            while start==1:
-                if(abs(goal_x-drone_x>thrs)):
-                    if(goal_x>drone_x):
-                        msg.linear.x = 0.01
+            while True:
+                if(abs(self.goal_x-self.current_x)>self.thrs):
+                    print("if")
+                    if(self.goal_x>self.current_x):
+                        msg.linear.x = -0.03
                     else:
-                        msg.linear.x = -0.01
-                elif(abs(goal_y-drone_y>thrs)):
-                    if(goal_y>drone_y):
-                        msg.linear.y = 0.01
+                        msg.linear.x = 0.03
+                elif(abs(self.goal_y-self.current_y)>self.thrs):
+                    print("elif")
+                    if(self.goal_y>self.current_y):
+                        msg.linear.y = -0.03
                     else:
-                        msg.linear.y = -0.01
+                        msg.linear.y = 0.03
                 else:
-                    msg.linear.x = 0
-                    msg.linear.y = 0
+                    print("else")
+                    msg.linear.x = 0.0
+                    msg.linear.y = 0.0
                 self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
-                print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
+                #print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
+                print("Goal_x = %.2f and Drone_x=  %.2f \n"  % (self.goal_x, self.current_x))
+                print("Goal_y = %.2f and Drone_y=  %.2f \n"  % (self.goal_y, self.current_y))
+                print("Vel_x = %.2f and Vel_y=  %.2f \n"  % (msg.linear.x , msg.linear.y))
                 time.sleep(rate)
                 
 
-        # We need to run the recorder in a seperate thread, otherwise blocking options would prevent frames from getting added to the video
+        # We need to run the recorder in a seperate thread
         thread = threading.Thread(target=goto_pose_thread)
         thread.start()
         return thread
