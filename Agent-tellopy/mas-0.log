@@ -2,51 +2,63 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-11-02T14:35:15.619495244Z</date>
-  <millis>1698935715619</millis>
-  <nanos>495244</nanos>
-  <sequence>0</sequence>
+  <date>2024-01-11T21:35:34.586658262Z</date>
+  <millis>1705008934586</millis>
+  <nanos>658262</nanos>
+  <sequence>138</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
-  <thread>34</thread>
-  <message>Started!</message>
+  <thread>56</thread>
+  <message>pox_y: -0.006285996176302433</message>
 </record>
 <record>
-  <date>2023-11-02T14:35:15.628242551Z</date>
-  <millis>1698935715628</millis>
-  <nanos>242551</nanos>
-  <sequence>1</sequence>
+  <date>2024-01-11T21:35:35.587432512Z</date>
+  <millis>1705008935587</millis>
+  <nanos>432512</nanos>
+  <sequence>139</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
-  <thread>34</thread>
-  <message>taking off</message>
+  <thread>56</thread>
+  <message>pox_x: -0.01639021374285221</message>
 </record>
 <record>
-  <date>2023-11-02T14:35:20.748234464Z</date>
-  <millis>1698935720748</millis>
-  <nanos>234464</nanos>
-  <sequence>2</sequence>
+  <date>2024-01-11T21:35:35.588013904Z</date>
+  <millis>1705008935588</millis>
+  <nanos>13904</nanos>
+  <sequence>140</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
-  <thread>34</thread>
-  <message>front</message>
+  <thread>56</thread>
+  <message>pox_y: -0.006245072931051254</message>
 </record>
 <record>
-  <date>2023-11-02T14:35:30.850131516Z</date>
-  <millis>1698935730850</millis>
-  <nanos>131516</nanos>
-  <sequence>3</sequence>
+  <date>2024-01-11T21:35:36.588754766Z</date>
+  <millis>1705008936588</millis>
+  <nanos>754766</nanos>
+  <sequence>141</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
-  <thread>34</thread>
-  <message>left</message>
+  <thread>56</thread>
+  <message>pox_x: -0.016421636566519737</message>
+</record>
+<record>
+  <date>2024-01-11T21:35:36.589100733Z</date>
+  <millis>1705008936589</millis>
+  <nanos>100733</nanos>
+  <sequence>142</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>pox_y: -0.006263351999223232</message>
 </record>
 </log>

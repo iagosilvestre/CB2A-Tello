@@ -13,7 +13,12 @@
       - topicName: /reached_goal
         topicType: std_msgs/Int8
         beliefName: reachedGoal
-        
+      - topicName: /agt_x
+        topicType: std_msgs/Float32
+        beliefName: pos_x
+      - topicName: /agt_y
+        topicType: std_msgs/Float32
+        beliefName: pos_y
       #- topicName: landing_x
       #  topicType: std_msgs/Float64
       #- topicName: landing_y

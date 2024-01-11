@@ -60,7 +60,7 @@ my_number_string(S) :- my_number(N)
       //embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","drop",[0.0, 0.0, 0.0]);
       .print("Started!");
       //!calculate_trajectory;//trajectory//!calculate_area;//!calculate_waypoints(1, []);// pode ser unido com os outros
-      //!hover.
+      !hover;
       !takeoff;
       .wait(5000);
       !front;
@@ -78,14 +78,14 @@ my_number_string(S) :- my_number(N)
       !land.
       //!follow_trajectory(0).      
 
-+goto(X,Y)
-   :  & not reachedGoal(1)
-   <- embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","go_to","" X ";" Y "");
-      !goto(X,Y).
+//+goto(X,Y)
+//   :  not reachedGoal
+//   <- embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","go_to","" X ";" Y "");
+//      !goto(X,Y).
    
-+goto(X,Y)
-   :  & reachedGoal(1)
-   <- .print("Reached Goal :" X "," Y).
+//+goto(X,Y)
+//   :  reachedGoal
+//   <- .print("Reached Goal :" X "," Y).
 
 +failure
    <- .print("Suspending Trajectory!");
@@ -148,9 +148,13 @@ my_number_string(S) :- my_number(N)
 
 
 +!hover
+   :  my_number(N)
+   & pos_x(LX)
+   & pos_y(LY)
    <- -+status("hovering");
       .wait(1000);
-      .print("hovering");
+      .print("pox_x: ",LX);
+      .print("pox_y: ",LY);
       !hover.
 
    

@@ -28,7 +28,7 @@ import yaml
 from djitellopy import Tello
 
 from rclpy.node import Node
-from std_msgs.msg import Empty, UInt8, UInt8, Bool, String, Int8
+from std_msgs.msg import Empty, UInt8, UInt8, Bool, String, Int8,Float32
 from sensor_msgs.msg import Image, Imu, BatteryState, Temperature, CameraInfo
 from geometry_msgs.msg import Twist, TransformStamped, PoseStamped
 from nav_msgs.msg import Odometry
@@ -65,6 +65,8 @@ class MinimalSubscriber(Node):
         self.pub_image_raw = self.create_publisher(Image, '/drone1/image_raw', 1)
         self.pub_camera_info = self.create_publisher(CameraInfo, '/drone1/camera_info', 1)
         self.pub_reached_goal = self.create_publisher(Int8, 'reached_goal', 1)
+        self.pub_agt_x = self.create_publisher(Float32, 'agt_x', 1)
+        self.pub_agt_y = self.create_publisher(Float32, 'agt_y', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
 
         self.pub_cmd_vel = self.create_publisher(Twist, '/drone1/cmd_vel', 1)
@@ -74,13 +76,17 @@ class MinimalSubscriber(Node):
         
         self.current_x=0.0
         self.current_y=0.0
+        self.current_w=0.0
 
         self.goal_x=0.0
         self.goal_y=0.0
+        self.goal_w=0.0
 
         self.startgoto=0
 
         self.thrs=0.03
+
+        self.start_goto_pose()
 
         #self.start_video_capture()
         #self.start_goto_pose()
@@ -122,7 +128,8 @@ class MinimalSubscriber(Node):
         #drone_x = trans.transform.translation.x
         #drone_y = trans.transform.translation.y 
         self.current_x = trans.transform.translation.x
-        self.current_y = trans.transform.translation.y    
+        self.current_y = trans.transform.translation.y   
+        self.current_w = trans.transform.rotation.w
         #print("I believe I am at x = %.3f and y=  %.3f "  % (trans.transform.translation.x, trans.transform.translation.y))
         roll, pitch, yaw = self.euler_from_quaternion(
         trans.transform.rotation.x,
@@ -185,14 +192,16 @@ class MinimalSubscriber(Node):
         #print("I believe I am at x = %.2f and y=  %.2f "  % (drone_x, drone_y))
 
     def goto_callback(self, msg):
-        if(self.startgoto==0):
-            self.startgoto=1
-            self.start_goto_pose()
+        #if(self.startgoto==0):
+        self.startgoto=1
+        #    self.start_goto_pose()
         x = msg.data.split(";")
         self.get_logger().info('x goal: "%s"' % x[0])
         self.get_logger().info('y goal: "%s"' % x[1])
         self.goal_x=float(x[0].strip("\""))
         self.goal_y=float(x[1].strip("\""))
+        #self.goal_w=0.49
+        self.goal_w=float(x[2].strip("\""))
         
         
 
@@ -201,24 +210,36 @@ class MinimalSubscriber(Node):
         def goto_pose_thread():
             print("Starting goto thread")
             msg=Twist()
+            msg_x=Float32()
+            msg_y=Float32()
             while True:
+                msg.linear.x = 0.0
+                msg.linear.y = 0.0
+                msg.angular.z = 0.0
                 if(abs(self.goal_x-self.current_x)>self.thrs):
-                    print("if")
+                    print("front/back")
                     if(self.goal_x>self.current_x):
                         msg.linear.x = -0.03
                     else:
                         msg.linear.x = 0.03
-                elif(abs(self.goal_y-self.current_y)>self.thrs):
-                    print("elif")
+                if(abs(self.goal_y-self.current_y)>self.thrs):
+                    print("left/right")
                     if(self.goal_y>self.current_y):
                         msg.linear.y = -0.03
                     else:
-                        msg.linear.y = 0.03
-                else:
-                    print("else")
-                    msg.linear.x = 0.0
-                    msg.linear.y = 0.0
-                self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
+                        msg.linear.y = 0.03  
+                if(abs(self.goal_w-self.current_w)>0.02):
+                    print("rotation")
+                    if(self.goal_w>self.current_w):
+                        msg.angular.z = -0.03
+                    else:
+                        msg.angular.z = 0.03   
+                if(self.startgoto==1):                
+                    self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
+                msg_x.data=self.current_x
+                msg_y.data=self.current_y
+                self.pub_agt_x.publish(msg_x)
+                self.pub_agt_y.publish(msg_y)
                 #print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
                 print("Goal_x = %.2f and Drone_x=  %.2f \n"  % (self.goal_x, self.current_x))
                 print("Goal_y = %.2f and Drone_y=  %.2f \n"  % (self.goal_y, self.current_y))
@@ -232,7 +253,7 @@ class MinimalSubscriber(Node):
         return thread
     
     # Start video capture thread.
-    def start_video_capture(self, rate=1.0/15.0):
+    def start_video_capture(self, rate=1.0/30.0):
         # Enable tello stream
         self.tello.streamon()
 
