@@ -2,63 +2,615 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-01-11T21:35:34.586658262Z</date>
-  <millis>1705008934586</millis>
-  <nanos>658262</nanos>
-  <sequence>138</sequence>
+  <date>2024-01-12T11:21:46.043622670Z</date>
+  <millis>1705058506043</millis>
+  <nanos>622670</nanos>
+  <sequence>372</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
   <thread>56</thread>
-  <message>pox_y: -0.006285996176302433</message>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
 </record>
 <record>
-  <date>2024-01-11T21:35:35.587432512Z</date>
-  <millis>1705008935587</millis>
-  <nanos>432512</nanos>
-  <sequence>139</sequence>
+  <date>2024-01-12T11:21:46.145855452Z</date>
+  <millis>1705058506145</millis>
+  <nanos>855452</nanos>
+  <sequence>373</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
   <thread>56</thread>
-  <message>pox_x: -0.01639021374285221</message>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
 </record>
 <record>
-  <date>2024-01-11T21:35:35.588013904Z</date>
-  <millis>1705008935588</millis>
-  <nanos>13904</nanos>
-  <sequence>140</sequence>
+  <date>2024-01-12T11:21:46.247865394Z</date>
+  <millis>1705058506247</millis>
+  <nanos>865394</nanos>
+  <sequence>374</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
   <thread>56</thread>
-  <message>pox_y: -0.006245072931051254</message>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
 </record>
 <record>
-  <date>2024-01-11T21:35:36.588754766Z</date>
-  <millis>1705008936588</millis>
-  <nanos>754766</nanos>
-  <sequence>141</sequence>
+  <date>2024-01-12T11:21:46.349913467Z</date>
+  <millis>1705058506349</millis>
+  <nanos>913467</nanos>
+  <sequence>375</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
   <thread>56</thread>
-  <message>pox_x: -0.016421636566519737</message>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
 </record>
 <record>
-  <date>2024-01-11T21:35:36.589100733Z</date>
-  <millis>1705008936589</millis>
-  <nanos>100733</nanos>
-  <sequence>142</sequence>
+  <date>2024-01-12T11:21:46.452128351Z</date>
+  <millis>1705058506452</millis>
+  <nanos>128351</nanos>
+  <sequence>376</sequence>
   <logger>jason.asSemantics.TransitionSystem.uav1</logger>
   <level>INFO</level>
   <class>jason.stdlib.println</class>
   <method>execute</method>
   <thread>56</thread>
-  <message>pox_y: -0.006263351999223232</message>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:46.554212525Z</date>
+  <millis>1705058506554</millis>
+  <nanos>212525</nanos>
+  <sequence>377</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:46.656247431Z</date>
+  <millis>1705058506656</millis>
+  <nanos>247431</nanos>
+  <sequence>378</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:46.757436901Z</date>
+  <millis>1705058506757</millis>
+  <nanos>436901</nanos>
+  <sequence>379</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:46.859323528Z</date>
+  <millis>1705058506859</millis>
+  <nanos>323528</nanos>
+  <sequence>380</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:46.962131027Z</date>
+  <millis>1705058506962</millis>
+  <nanos>131027</nanos>
+  <sequence>381</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.064347731Z</date>
+  <millis>1705058507064</millis>
+  <nanos>347731</nanos>
+  <sequence>382</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.166298428Z</date>
+  <millis>1705058507166</millis>
+  <nanos>298428</nanos>
+  <sequence>383</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.268024420Z</date>
+  <millis>1705058507268</millis>
+  <nanos>24420</nanos>
+  <sequence>384</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.369946467Z</date>
+  <millis>1705058507369</millis>
+  <nanos>946467</nanos>
+  <sequence>385</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.472056988Z</date>
+  <millis>1705058507472</millis>
+  <nanos>56988</nanos>
+  <sequence>386</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.574142301Z</date>
+  <millis>1705058507574</millis>
+  <nanos>142301</nanos>
+  <sequence>387</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.676917474Z</date>
+  <millis>1705058507676</millis>
+  <nanos>917474</nanos>
+  <sequence>388</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.778957587Z</date>
+  <millis>1705058507778</millis>
+  <nanos>957587</nanos>
+  <sequence>389</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.880823238Z</date>
+  <millis>1705058507880</millis>
+  <nanos>823238</nanos>
+  <sequence>390</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:47.982656706Z</date>
+  <millis>1705058507982</millis>
+  <nanos>656706</nanos>
+  <sequence>391</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.084553529Z</date>
+  <millis>1705058508084</millis>
+  <nanos>553529</nanos>
+  <sequence>392</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.186396499Z</date>
+  <millis>1705058508186</millis>
+  <nanos>396499</nanos>
+  <sequence>393</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.288271508Z</date>
+  <millis>1705058508288</millis>
+  <nanos>271508</nanos>
+  <sequence>394</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.389846624Z</date>
+  <millis>1705058508389</millis>
+  <nanos>846624</nanos>
+  <sequence>395</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.492012741Z</date>
+  <millis>1705058508492</millis>
+  <nanos>12741</nanos>
+  <sequence>396</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.593871599Z</date>
+  <millis>1705058508593</millis>
+  <nanos>871599</nanos>
+  <sequence>397</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.695708888Z</date>
+  <millis>1705058508695</millis>
+  <nanos>708888</nanos>
+  <sequence>398</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.797317267Z</date>
+  <millis>1705058508797</millis>
+  <nanos>317267</nanos>
+  <sequence>399</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:48.899238901Z</date>
+  <millis>1705058508899</millis>
+  <nanos>238901</nanos>
+  <sequence>400</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.001301172Z</date>
+  <millis>1705058509001</millis>
+  <nanos>301172</nanos>
+  <sequence>401</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.103372452Z</date>
+  <millis>1705058509103</millis>
+  <nanos>372452</nanos>
+  <sequence>402</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.205177863Z</date>
+  <millis>1705058509205</millis>
+  <nanos>177863</nanos>
+  <sequence>403</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.307052853Z</date>
+  <millis>1705058509307</millis>
+  <nanos>52853</nanos>
+  <sequence>404</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.408876647Z</date>
+  <millis>1705058509408</millis>
+  <nanos>876647</nanos>
+  <sequence>405</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.510760233Z</date>
+  <millis>1705058509510</millis>
+  <nanos>760233</nanos>
+  <sequence>406</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.612482254Z</date>
+  <millis>1705058509612</millis>
+  <nanos>482254</nanos>
+  <sequence>407</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.714341079Z</date>
+  <millis>1705058509714</millis>
+  <nanos>341079</nanos>
+  <sequence>408</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.816108106Z</date>
+  <millis>1705058509816</millis>
+  <nanos>108106</nanos>
+  <sequence>409</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:49.918052168Z</date>
+  <millis>1705058509918</millis>
+  <nanos>52168</nanos>
+  <sequence>410</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.019773176Z</date>
+  <millis>1705058510019</millis>
+  <nanos>773176</nanos>
+  <sequence>411</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.121647196Z</date>
+  <millis>1705058510121</millis>
+  <nanos>647196</nanos>
+  <sequence>412</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.223384695Z</date>
+  <millis>1705058510223</millis>
+  <nanos>384695</nanos>
+  <sequence>413</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.325115586Z</date>
+  <millis>1705058510325</millis>
+  <nanos>115586</nanos>
+  <sequence>414</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.426901453Z</date>
+  <millis>1705058510426</millis>
+  <nanos>901453</nanos>
+  <sequence>415</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.528845532Z</date>
+  <millis>1705058510528</millis>
+  <nanos>845532</nanos>
+  <sequence>416</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.630727563Z</date>
+  <millis>1705058510630</millis>
+  <nanos>727563</nanos>
+  <sequence>417</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.732730993Z</date>
+  <millis>1705058510732</millis>
+  <nanos>730993</nanos>
+  <sequence>418</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.834456961Z</date>
+  <millis>1705058510834</millis>
+  <nanos>456961</nanos>
+  <sequence>419</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:50.936439695Z</date>
+  <millis>1705058510936</millis>
+  <nanos>439695</nanos>
+  <sequence>420</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:51.038279274Z</date>
+  <millis>1705058511038</millis>
+  <nanos>279274</nanos>
+  <sequence>421</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
+</record>
+<record>
+  <date>2024-01-12T11:21:51.140094307Z</date>
+  <millis>1705058511140</millis>
+  <nanos>94307</nanos>
+  <sequence>422</sequence>
+  <logger>jason.asSemantics.TransitionSystem.uav1</logger>
+  <level>INFO</level>
+  <class>jason.stdlib.println</class>
+  <method>execute</method>
+  <thread>56</thread>
+  <message>At pos: -0.013270199298858643,0.9134480357170105,0.47800785303115845</message>
 </record>
 </log>

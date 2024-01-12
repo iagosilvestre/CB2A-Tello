@@ -19,6 +19,9 @@
       - topicName: /agt_y
         topicType: std_msgs/Float32
         beliefName: pos_y
+      - topicName: /agt_w
+        topicType: std_msgs/Float32
+        beliefName: pos_w
       #- topicName: landing_x
       #  topicType: std_msgs/Float64
       #- topicName: landing_y

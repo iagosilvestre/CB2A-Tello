@@ -67,6 +67,7 @@ class MinimalSubscriber(Node):
         self.pub_reached_goal = self.create_publisher(Int8, 'reached_goal', 1)
         self.pub_agt_x = self.create_publisher(Float32, 'agt_x', 1)
         self.pub_agt_y = self.create_publisher(Float32, 'agt_y', 1)
+        self.pub_agt_w = self.create_publisher(Float32, 'agt_w', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
 
         self.pub_cmd_vel = self.create_publisher(Twist, '/drone1/cmd_vel', 1)
@@ -195,13 +196,16 @@ class MinimalSubscriber(Node):
         #if(self.startgoto==0):
         self.startgoto=1
         #    self.start_goto_pose()
-        x = msg.data.split(";")
+        x = msg.data
+        x = x.replace("[", "") 
+        x = x.replace("]", "") 
+        x = msg.data.split(",")
         self.get_logger().info('x goal: "%s"' % x[0])
         self.get_logger().info('y goal: "%s"' % x[1])
-        self.goal_x=float(x[0].strip("\""))
+        self.goal_x=float(x[0].strip("\"["))
         self.goal_y=float(x[1].strip("\""))
         #self.goal_w=0.49
-        self.goal_w=float(x[2].strip("\""))
+        self.goal_w=float(x[2].strip("\"]"))
         
         
 
@@ -212,6 +216,7 @@ class MinimalSubscriber(Node):
             msg=Twist()
             msg_x=Float32()
             msg_y=Float32()
+            msg_w=Float32()
             while True:
                 msg.linear.x = 0.0
                 msg.linear.y = 0.0
@@ -238,11 +243,14 @@ class MinimalSubscriber(Node):
                     self.pub_cmd_vel.publish(msg) #Only for ROS-Gazebo Simulation
                 msg_x.data=self.current_x
                 msg_y.data=self.current_y
+                msg_w.data=self.current_w
                 self.pub_agt_x.publish(msg_x)
                 self.pub_agt_y.publish(msg_y)
+                self.pub_agt_w.publish(msg_w)
                 #print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
                 print("Goal_x = %.2f and Drone_x=  %.2f \n"  % (self.goal_x, self.current_x))
                 print("Goal_y = %.2f and Drone_y=  %.2f \n"  % (self.goal_y, self.current_y))
+                print("Goal_w = %.2f and Drone_w=  %.2f \n"  % (self.goal_w, self.current_w))
                 print("Vel_x = %.2f and Vel_y=  %.2f \n"  % (msg.linear.x , msg.linear.y))
                 time.sleep(rate)
                 

@@ -7,22 +7,41 @@ std_altitude(20.0).
 std_heading(0.0).
 land_point(-102.0, -111.0).
 land_radius(10.0).
-diff(1).
+diff(0.05).
 my_number(1). 
 my_frame_id("uav1/gps_origin").
+
+location(wp1,  0.0,  0.9, 0.48).
+location(wp2,  0.0,  0.9, 0.0).
+location(wp3,  0.0,  0.0, 0.0).
+location(wp4,  0.6,  0.9, 0.48).
+
+firstStation(wp1).   
+
+// Determine the last station to be visited
+lastStation(wp4).
+
+// Determine the next location to work (second parameter) based on the current one (first parameter)
+next_location(wp1,wp2).
+next_location(wp2,wp3).
+next_location(wp3,wp4).
+
 //pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW))))
 //////////////// Rules
-current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & drone1_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
+//current_position(CX, CY, CW) :- pos_x(CX) & pos_y(CY) & pos_W(CW).
+current_position(CX, CY, RW) :- pos_x(CX) & pos_y(CY) & pos_w(RW).
+//current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & drone1_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav7_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav8_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav9_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav10_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav11_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
 //current_position(CX, CY, CZ) :- my_frame_id(Frame_id) & uav12_odometry_gps_local_odom(header(seq(Seq),stamp(secs(Secs),nsecs(Nsecs)),frame_id(Frame_id)),child_frame_id(CFI),pose(pose(position(x(CX),y(CY),z(CZ)),orientation(x(OX),y((OY)),z((OZ)),w((OW)))),covariance(CV)),twist(twist(linear(x(LX),y(LY),z((LZ))),angular(x(AX),y((AY)),z((AZ)))),covariance(CV2))).
-near(X, Y) :- current_position(CX, CY, CZ)
+near(X, Y, W) :- current_position(CX, CY, RW)
               & diff(D)
               & math.abs(CX - X) <= D
-              & math.abs(CY - Y) <= D.
+              & math.abs(CY - Y) <= D
+              & math.abs(RW - W) <= D.
 my_number_string(S) :- my_number(N)
                        & .term2string(N, S).
 
@@ -54,38 +73,57 @@ my_number_string(S) :- my_number(N)
       //!follow_trajectory(0).
       
 !start.
-
-+!start
-    <- .wait(5000);
++!start : firstStation(ST) <- .print("Manager agent started"); !work(ST).
+//+!start
+   // <- .wait(5000);
       //embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","drop",[0.0, 0.0, 0.0]);
-      .print("Started!");
+      //.print("Started!");
       //!calculate_trajectory;//trajectory//!calculate_area;//!calculate_waypoints(1, []);// pode ser unido com os outros
-      !hover;
-      !takeoff;
-      .wait(5000);
-      !front;
-      .wait(10000);
-      !left;
-      .wait(10000);
-      !rotate180;
-      .wait(10000);
-      !front;
-      .wait(10000);
-      !left;
-      .wait(10000);
-      !rotate180;
-      .wait(10000);
-      !land.
+      //!hover;
+      //!takeoff;
+      //!goto(0.6;0.0;0.48).
       //!follow_trajectory(0).      
 
 //+goto(X,Y)
 //   :  not reachedGoal
 //   <- embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","go_to","" X ";" Y "");
 //      !goto(X,Y).
-   
-//+goto(X,Y)
-//   :  reachedGoal
-//   <- .print("Reached Goal :" X "," Y).
++!work(Location) : location(Location, X, Y, W) 
+	<- .wait(2000);
+		-working(_);
+		+working(Location);
+		.print("Now moving to: ", X, ",",Y, ",",W);
+		!goto(X, Y, W).   
+
+//////////////// Check Near
++!goto(X, Y, W)
+   :  near(X, Y, W)
+      & working(Location) 
+      & next_location(Location,Next)
+   <- .print("Arrived at ", X, ",",Y);
+      .wait(1000);
+      !work(Next).
+
++!goto(X, Y, W)
+   :  near(X, Y, W)
+      & working(Location) 
+      & next_location(Location,Next)
+      & lastStation(LastLoc) 
+      & Location == LastLoc
+   <- .print("Finished Trajectory");
+      embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","land",N).
+
++!goto(X, Y, W)
+   :  .term2string([X, Y, W], S)
+      & current_position(CX, CY, RW)
+      //& pos_x(CX)
+      //& pos_y(CY)
+      //& pos_w(CW)
+   <- embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","goto",S);
+      .print("At pos: ", CX, ",",CY, ",",RW);
+      //.print("Near next wp: ", near(X, Y, W));
+      .wait(100);
+      !goto(X, Y, W).
 
 +failure
    <- .print("Suspending Trajectory!");
@@ -153,8 +191,8 @@ my_number_string(S) :- my_number(N)
    & pos_y(LY)
    <- -+status("hovering");
       .wait(1000);
-      .print("pox_x: ",LX);
-      .print("pox_y: ",LY);
+      .print("pos_x: ",LX);
+      .print("pos_y: ",LY);
       !hover.
 
    
