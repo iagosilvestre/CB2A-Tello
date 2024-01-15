@@ -60,7 +60,8 @@ class MinimalSubscriber(Node):
         Tello.RESPONSE_TIMEOUT = int(10.0)
         
         self.tello = Tello()
-        #self.tello.connect()
+        self.tello.connect()
+        self.tello.set_speed(70)
         self.pub_conclude = self.create_publisher(String, 'conclude', 10)
         self.pub_image_raw = self.create_publisher(Image, '/drone1/image_raw', 1)
         self.pub_camera_info = self.create_publisher(CameraInfo, '/drone1/camera_info', 1)
@@ -69,11 +70,13 @@ class MinimalSubscriber(Node):
         self.pub_agt_y = self.create_publisher(Float32, 'agt_y', 1)
         self.pub_agt_w = self.create_publisher(Float32, 'agt_w', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
+        self.pub_det_red = self.create_publisher(Int8, 'detectRed', 1)
+        self.pub_det_blue = self.create_publisher(Int8, 'detectBlue', 1)
 
         self.pub_cmd_vel = self.create_publisher(Twist, '/drone1/cmd_vel', 1)
         
-        self.tf_buffer = Buffer()
-        self.tf_listener = TransformListener(self.tf_buffer, self)
+        #self.tf_buffer = Buffer()
+        #self.tf_listener = TransformListener(self.tf_buffer, self)
         
         self.current_x=0.0
         self.current_y=0.0
@@ -87,9 +90,10 @@ class MinimalSubscriber(Node):
 
         self.thrs=0.03
 
+        self.start_video_capture()
         self.start_goto_pose()
-
-        #self.start_video_capture()
+        #self.sub_cam_vrd = self.create_subscription(Image,'/drone1/image_raw',self.camVerdict_callback,1)
+        
         #self.start_goto_pose()
         #self.start_tello_status()
         #self.start_tello_odom()
@@ -99,7 +103,7 @@ class MinimalSubscriber(Node):
         #tello.rotate_counter_clockwise(90)
         #tello.move_forward(100)
         #tello.land()
-        self.timer = self.create_timer(0.5, self.on_timer)
+        #self.timer = self.create_timer(0.5, self.on_timer)
 
 
     def on_timer(self):
@@ -168,10 +172,13 @@ class MinimalSubscriber(Node):
 
 
     def listener_callback(self, msg):
+        baro=1
         x = msg.data.split(";")
         self.get_logger().info('I heard: "%s"' % x[0])
         if x[0] == "\"takeoff":
             self.tello.takeoff()
+            #time.sleep(3)
+            #self.tello.move_down(20)
         elif x[0] == "\"move_left":
             self.tello.move_left(int(x[1].strip("\"")))
         elif x[0] == "\"move_right":
@@ -180,17 +187,89 @@ class MinimalSubscriber(Node):
             self.tello.move_forward(int(x[1].strip("\"")))
         elif x[0] == "\"move_back":
             self.tello.move_back(int(x[1].strip("\"")))
+        elif x[0] == "\"up":
+            self.tello.move_up(int(x[1].strip("\"")))
+        elif x[0] == "\"down":
+            self.tello.move_down(int(x[1].strip("\"")))
         elif x[0] == "\"land":
             self.tello.land()
         elif x[0] == "\"rotate_ccw":
             self.tello.rotate_counter_clockwise(int(x[1].strip("\"")))
         elif x[0] == "\"rotate_cw":
             self.tello.rotate_clockwise(int(x[1].strip("\"")))
+        elif x[0] == "\"keepalive":
+            self.tello.set_speed(70)
+          
+            #teste=1
+            #teste=self.tello.query_speed()
 
     #def pose_callback(self, msg):
         #drone_x=msg.transforms.transform.translation.x
         #drone_y=msg.transforms.transform.translation.y
         #print("I believe I am at x = %.2f and y=  %.2f "  % (drone_x, drone_y))
+
+    def count_red_and_blue_pixels(self,image):
+        # Convert the ROS image message to an OpenCV image
+        bridge = CvBridge()
+        cv_image = bridge.imgmsg_to_cv2(image, desired_encoding="rgb8")
+
+        # Define the lower and upper bounds for the red color in RGB
+        lower_red = numpy.array([100, 0, 0])
+        upper_red = numpy.array([255, 100, 100])
+
+        # Define the lower and upper bounds for the blue color in RGB
+        lower_blue = numpy.array([0, 0, 100])
+        upper_blue = numpy.array([100, 100, 255])
+
+        # Create masks to extract only the red and blue pixels
+        red_mask = cv2.inRange(cv_image, lower_red, upper_red)
+        blue_mask = cv2.inRange(cv_image, lower_blue, upper_blue)
+
+        # Count the number of red and blue pixels
+        red_pixel_count = numpy.sum(red_mask == 255)
+        blue_pixel_count = numpy.sum(blue_mask == 255)
+
+        return red_pixel_count, blue_pixel_count
+
+    def camVerdict_callback(self, msg):
+        redData=Int8()
+        blueData=Int8()
+        # Count red and blue pixels in the received image
+        bridge = CvBridge()
+        cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding="rgb8")
+
+        # Define the lower and upper bounds for the red color in RGB
+        lower_red = numpy.array([200, 50, 50])
+        upper_red = numpy.array([255, 100, 100])
+
+        # Define the lower and upper bounds for the blue color in RGB
+        lower_blue = numpy.array([50, 50, 200])
+        upper_blue = numpy.array([100, 100, 255])
+
+        # Create masks to extract only the red and blue pixels
+        red_mask = cv2.inRange(cv_image, lower_red, upper_red)
+        blue_mask = cv2.inRange(cv_image, lower_blue, upper_blue)
+
+        # Count the number of red and blue pixels
+        red_pixel_count = numpy.sum(red_mask == 255)
+        blue_pixel_count = numpy.sum(blue_mask == 255)
+
+        if(red_pixel_count>4000):
+            redData.data=1
+        else:
+            redData.data=0
+        if(blue_pixel_count>2000):
+            blueData.data=1
+        else:
+            blueData.data=0   
+        self.pub_det_red.publish(redData)
+        self.pub_det_blue.publish(blueData)
+        print(f'The number of red pixels in the image is: {red_pixel_count}')
+        print(f'The number of blue pixels in the image is: {blue_pixel_count}')
+
+    #def camVerdict_callback(self, msg):
+    #    print("Received Cam img ")
+    #    image = cv2.imread(msg.data)
 
     def goto_callback(self, msg):
         #if(self.startgoto==0):
@@ -200,8 +279,8 @@ class MinimalSubscriber(Node):
         x = x.replace("[", "") 
         x = x.replace("]", "") 
         x = msg.data.split(",")
-        self.get_logger().info('x goal: "%s"' % x[0])
-        self.get_logger().info('y goal: "%s"' % x[1])
+        #self.get_logger().info('x goal: "%s"' % x[0])
+        #self.get_logger().info('y goal: "%s"' % x[1])
         self.goal_x=float(x[0].strip("\"["))
         self.goal_y=float(x[1].strip("\""))
         #self.goal_w=0.49
@@ -232,7 +311,7 @@ class MinimalSubscriber(Node):
                     if(self.goal_y>self.current_y):
                         msg.linear.y = -0.03
                     else:
-                        msg.linear.y = 0.03  
+                        msg.linear.y = 0.03 
                 if(abs(self.goal_w-self.current_w)>0.02):
                     print("rotation")
                     if(self.goal_w>self.current_w):
@@ -248,10 +327,10 @@ class MinimalSubscriber(Node):
                 self.pub_agt_y.publish(msg_y)
                 self.pub_agt_w.publish(msg_w)
                 #print("Desired velocity x = %.2f and y=  %.2f "  % (msg.linear.x, msg.linear.y))
-                print("Goal_x = %.2f and Drone_x=  %.2f \n"  % (self.goal_x, self.current_x))
-                print("Goal_y = %.2f and Drone_y=  %.2f \n"  % (self.goal_y, self.current_y))
-                print("Goal_w = %.2f and Drone_w=  %.2f \n"  % (self.goal_w, self.current_w))
-                print("Vel_x = %.2f and Vel_y=  %.2f \n"  % (msg.linear.x , msg.linear.y))
+                #print("Goal_x = %.2f and Drone_x=  %.2f \n"  % (self.goal_x, self.current_x))
+                #print("Goal_y = %.2f and Drone_y=  %.2f \n"  % (self.goal_y, self.current_y))
+                #print("Goal_w = %.2f and Drone_w=  %.2f \n"  % (self.goal_w, self.current_w))
+                #print("Vel_x = %.2f and Vel_y=  %.2f \n"  % (msg.linear.x , msg.linear.y))
                 time.sleep(rate)
                 
 
@@ -261,13 +340,15 @@ class MinimalSubscriber(Node):
         return thread
     
     # Start video capture thread.
-    def start_video_capture(self, rate=1.0/30.0):
+    def start_video_capture(self, rate=1.0/15.0):
         # Enable tello stream
         self.tello.streamon()
-
+        #self.tello.set_video_bitrate(1)
+        #self.tello.set_video_resolution("Tello.RESOLUTION_480P")
         # OpenCV bridge
         self.bridge = CvBridge()
-
+        redData=Int8()
+        blueData=Int8()
         def video_capture_thread():
             frame_read = self.tello.get_frame_read()
 
@@ -279,6 +360,37 @@ class MinimalSubscriber(Node):
                 msg = self.bridge.cv2_to_imgmsg(numpy.array(frame), 'rgb8')
                 msg.header.frame_id = 'drone'
                 self.pub_image_raw.publish(msg)
+
+                
+
+                cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding="rgb8")
+                lower_red = numpy.array([180, 0, 0])
+                upper_red = numpy.array([255, 150, 150])
+
+                # Define the lower and upper bounds for the blue color in RGB
+                lower_blue = numpy.array([0, 0, 180])
+                upper_blue = numpy.array([150, 150, 255])
+
+                # Create masks to extract only the red and blue pixels
+                red_mask = cv2.inRange(cv_image, lower_red, upper_red)
+                blue_mask = cv2.inRange(cv_image, lower_blue, upper_blue)
+
+                # Count the number of red and blue pixels
+                red_pixel_count = numpy.sum(red_mask == 255)
+                blue_pixel_count = numpy.sum(blue_mask == 255)
+
+                if(red_pixel_count>500):
+                    redData.data=1
+                else:
+                    redData.data=0
+                if(blue_pixel_count>500):
+                    blueData.data=1
+                else:
+                    blueData.data=0   
+                self.pub_det_red.publish(redData)
+                self.pub_det_blue.publish(blueData)
+                print(f'The number of red pixels in the image is: {red_pixel_count}')
+                print(f'The number of blue pixels in the image is: {blue_pixel_count}')
 
                 time.sleep(rate)
                 
