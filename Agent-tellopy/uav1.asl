@@ -7,7 +7,8 @@ std_altitude(20.0).
 std_heading(0.0).
 land_point(-102.0, -111.0).
 land_radius(10.0).
-diff(0.05).
+diff(200.0).
+thrs(200).
 my_number(1). 
 my_frame_id("uav1/gps_origin").
 
@@ -42,6 +43,10 @@ near(X, Y, W) :- current_position(CX, CY, RW)
               & math.abs(CX - X) <= D
               & math.abs(CY - Y) <= D
               & math.abs(RW - W) <= D.
+
+lightDetect(N) :- detectred(N)
+               & diff(D)
+               & math.abs(N) >= D.
 my_number_string(S) :- my_number(N)
                        & .term2string(N, S).
 
@@ -58,9 +63,13 @@ my_number_string(S) :- my_number(N)
 
 +goland(N) : my_number(N) <- !start_land(N).
 
-+detectred(N) : my_number(N) <- !reactRed(N).
+//+detectred(N) : my_number(N) <- !reactRed(N).
++detectred(N) : thrs(CT) & N>=CT  <- !reactRed(N).
 
-+detectblue(N) : my_number(N) <- !reactBlue(N).
+//+detectblue(N) : my_number(N) <- !reactBlue(N).
++detectblue(N) : thrs(CT) & N>=CT  <- !reactBlue(N).
+
++eland(N) : my_number(N) <- !elanding(N).
 //+failure_uav1(N) : my_number(N) <- !detected_failure(N).
 
 //+failure_uav1(N)<- !detected_failure.
@@ -88,7 +97,7 @@ my_number_string(S) :- my_number(N)
       !takeoff;
       .wait(10000);
       !front;
-      .wait(10000);
+      .wait(5000);
       //+hovering;
       //!left;
       //.wait(10000);
@@ -102,34 +111,37 @@ my_number_string(S) :- my_number(N)
 //      !goto(X,Y).
 
 +!reactRed(N)
-   :  my_number(N)
-      & not status("reactBlue")
-      & not status("reactRed")
+   :  not reactblue
+      & not reactred
       & afterhover
-   <- -+status("reactRed");
+   <- +reactred;
       +afterred;
       .print("reactRed");
+      .suspend(reactBlue(N));
       .suspend(hover);
       !left;
-      .wait(10000);
+      .wait(5000);
+      -reactred;
       !land.
 
 
 +!reactBlue(N)
-   :  my_number(N)
-      & afterhover
-      & not status("reactRed")
-   <- -+status("reactBlue");
+   :  afterhover
+      & not reactred
+      & not reactblue
+   <- +reactblue;
       .suspend(reactRed(N));
+      .print("reactBlue");
       .suspend(hover);
       !back;
-      .wait(10000);
+      .wait(5000);
       !front;
-      .wait(10000);
+      .wait(5000);
+      -reactblue;
       !hover.
 +!hover
-   :  my_number(N)
-      & not afterred
+   :  not reactblue
+      & not reactred
    <- -+status("hover");
       .print("hover");
       +afterhover;
@@ -143,6 +155,14 @@ my_number_string(S) :- my_number(N)
 		+working(Location);
 		.print("Now moving to: ", X, ",",Y, ",",W);
 		!goto(X, Y, W).   
+
++!elanding(N)
+   :  my_number(N)
+   <- +elanding;
+      .suspend(hover);
+      .suspend(reactRed(N));
+      .suspend(reactBlue(N));
+      !land.
 
 //////////////// Check Near
 +!goto(X, Y, W)
@@ -261,6 +281,7 @@ my_number_string(S) :- my_number(N)
    <- -+status("land");
       .print("land");
       embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd","land;0");
+      .wait(100);
       embedded.mas.bridges.jacamo.defaultEmbeddedInternalAction("roscore1","cmd","reset").   
 
 

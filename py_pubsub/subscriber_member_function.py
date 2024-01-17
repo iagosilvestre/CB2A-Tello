@@ -28,7 +28,7 @@ import yaml
 from djitellopy import Tello
 
 from rclpy.node import Node
-from std_msgs.msg import Empty, UInt8, UInt8, Bool, String, Int8,Float32
+from std_msgs.msg import Empty, UInt8, UInt8, Bool, String, Int8,Float32,Int16
 from sensor_msgs.msg import Image, Imu, BatteryState, Temperature, CameraInfo
 from geometry_msgs.msg import Twist, TransformStamped, PoseStamped
 from nav_msgs.msg import Odometry
@@ -70,8 +70,8 @@ class MinimalSubscriber(Node):
         self.pub_agt_y = self.create_publisher(Float32, 'agt_y', 1)
         self.pub_agt_w = self.create_publisher(Float32, 'agt_w', 1)
         self.pub_cmd_reset = self.create_publisher(String, 'cmd_tello', 1)
-        self.pub_det_red = self.create_publisher(Int8, 'detectRed', 1)
-        self.pub_det_blue = self.create_publisher(Int8, 'detectBlue', 1)
+        self.pub_det_red = self.create_publisher(Int16, 'detectRed', 1)
+        self.pub_det_blue = self.create_publisher(Int16, 'detectBlue', 1)
 
         self.pub_cmd_vel = self.create_publisher(Twist, '/drone1/cmd_vel', 1)
         
@@ -347,8 +347,8 @@ class MinimalSubscriber(Node):
         #self.tello.set_video_resolution("Tello.RESOLUTION_480P")
         # OpenCV bridge
         self.bridge = CvBridge()
-        redData=Int8()
-        blueData=Int8()
+        redData=Int16()
+        blueData=Int16()
         def video_capture_thread():
             frame_read = self.tello.get_frame_read()
 
@@ -379,12 +379,14 @@ class MinimalSubscriber(Node):
                 red_pixel_count = numpy.sum(red_mask == 255)
                 blue_pixel_count = numpy.sum(blue_mask == 255)
 
-                if(red_pixel_count>500):
-                    redData.data=1
+                if(red_pixel_count>200):
+                    #redData.data=1
+                    redData.data=int(red_pixel_count)
                 else:
                     redData.data=0
-                if(blue_pixel_count>500):
-                    blueData.data=1
+                if(blue_pixel_count>200):
+                    #blueData.data=1
+                    blueData.data=int(blue_pixel_count)
                 else:
                     blueData.data=0   
                 self.pub_det_red.publish(redData)
